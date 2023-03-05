@@ -4,7 +4,7 @@ import ItemCard from './components/ItemCard.vue'
 </script>
 
 <template>
-<div style="border: 1px solid red; display: flex; gap: 100px;">
+<div class="main-container">
   <div>
   <ItemList :items="leftSelectedItems">
     Items count: {{leftSelectedItems.length}}/6
@@ -115,3 +115,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+.main-container{
+    border: 1px solid red; display: flex; gap: 100px;
+}
+</style>
