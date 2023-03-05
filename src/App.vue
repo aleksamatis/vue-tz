@@ -1,47 +1,122 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import ItemList from './components/ItemList.vue'
+import ItemCard from './components/ItemCard.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+<div class="main-container">
+  <div>
+  <ItemList :items="leftSelectedItems">
+    Items count: {{leftSelectedItems.length}}/6
+  </ItemList>
+  <ItemList :items="leftItems" @item-selected="onItemSelectedLeft"/>
+  </div>
+  <div>
+  <ItemCard :item="selectedItem" v-if="selectedItem"/>
+  <ItemList :items="rightItems" @item-selected="onItemSelected"/>
+  </div>
+</div>
 </template>
 
+<script>
+
+export default {
+    data() {
+       return {
+            leftItems: [{
+        "id": 1,
+        "name": "Shoes 1"
+    },
+    {
+        "id": 2,
+        "name": "Shoes 2"
+    },
+    {
+        "id": 3,
+        "name": "Shoes 3"
+    },
+    {
+        "id": 4,
+        "name": "Shoes 4"
+    },
+    {
+        "id": 5,
+        "name": "T-shirt 1"
+    },
+    {
+        "id": 6,
+        "name": "T-shirt 2"
+    },
+    {
+        "id": 7,
+        "name": "T-shirt 3"
+    },
+    {
+        "id": 8,
+        "name": "T-shirt 4"
+    }], 
+    rightItems:[
+    {
+        "id": 11,
+        "name": "Jacket 1"
+    },
+    {
+        "id": 12,
+        "name": "Jacket 2"
+    },
+    {
+        "id": 13,
+        "name": "Jacket 3"
+    },
+    {
+        "id": 14,
+        "name": "Jacket 4"
+    },
+    {
+        "id": 15,
+        "name": "Hoodie 1"
+    },
+    {
+        "id": 16,
+        "name": "Hoodie 2"
+    },
+    {
+        "id": 17,
+        "name": "Hoodie 3"
+    },
+    {
+        "id": 18,
+        "name": "Hoodie 4"
+    }
+    ], selectedItem: null,
+    leftSelectedItems: [],
+        }
+        
+    },
+
+    mounted() {
+      this.selectedItem = this.rightItems[0]
+    },
+  
+  methods: {
+    onItemSelected(item) {
+      this.selectedItem = item,
+      this.selectedItem = leftSelectedItems.push[item]
+    },
+     onItemSelectedLeft(item) {
+      if (this.leftSelectedItems.find(i => i.id === item.id)) {
+        return
+      }
+      this.leftSelectedItems.push(item)
+      if (this.leftSelectedItems.length == 7){
+        this.leftSelectedItems.shift()
+      }
+    }
+  }
+}
+</script>
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
+.main-container{
+    border: 1px solid red; display: flex; gap: 100px;
 }
 </style>
